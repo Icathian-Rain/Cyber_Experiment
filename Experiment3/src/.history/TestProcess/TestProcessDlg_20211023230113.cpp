@@ -1,17 +1,11 @@
-// TCPClientDlg.cpp : implementation file
+// TestProcessDlg.cpp : implementation file
 //
 
 #include "stdafx.h"
-#include "TCPClient.h"
-#include "TCPClientDlg.h"
-#include<stdio.h>
-#include<string.h>
-#include "Windows.h"
-#include "winsock.h"
-#pragma comment(lib, "Ws2_32.lib")
-
-
-
+#include "TestProcess.h"
+#include "TestProcessDlg.h"
+#include "Mmsystem.h"
+#pragma comment(lib, "Winmm.lib")
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -65,38 +59,42 @@ BEGIN_MESSAGE_MAP(CAboutDlg, CDialog)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
-// CTCPClientDlg dialog
+// CTestProcessDlg dialog
 
-CTCPClientDlg::CTCPClientDlg(CWnd* pParent /*=NULL*/)
-	: CDialog(CTCPClientDlg::IDD, pParent)
+CTestProcessDlg::CTestProcessDlg(CWnd* pParent /*=NULL*/)
+	: CDialog(CTestProcessDlg::IDD, pParent)
 {
-	//{{AFX_DATA_INIT(CTCPClientDlg)
+	//{{AFX_DATA_INIT(CTestProcessDlg)
 		// NOTE: the ClassWizard will add member initialization here
 	//}}AFX_DATA_INIT
 	// Note that LoadIcon does not require a subsequent DestroyIcon in Win32
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
 
-void CTCPClientDlg::DoDataExchange(CDataExchange* pDX)
+void CTestProcessDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CTCPClientDlg)
+	//{{AFX_DATA_MAP(CTestProcessDlg)
 		// NOTE: the ClassWizard will add DDX and DDV calls here
 	//}}AFX_DATA_MAP
 }
 
-BEGIN_MESSAGE_MAP(CTCPClientDlg, CDialog)
-	//{{AFX_MSG_MAP(CTCPClientDlg)
+BEGIN_MESSAGE_MAP(CTestProcessDlg, CDialog)
+	//{{AFX_MSG_MAP(CTestProcessDlg)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_BN_CLICKED(IDC_BUTTON1, OnButton1)
+	ON_BN_CLICKED(IDC_BUTTON2, OnButton2)
+	ON_LBN_SELCHANGE(IDC_LIST1, OnSelchangeList1)
+	ON_LBN_SELCHANGE(IDC_LIST2, OnSelchangeList2)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
-// CTCPClientDlg message handlers
+// CTestProcessDlg message handlers
 
-BOOL CTCPClientDlg::OnInitDialog()
+BOOL CTestProcessDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
@@ -128,7 +126,7 @@ BOOL CTCPClientDlg::OnInitDialog()
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
-void CTCPClientDlg::OnSysCommand(UINT nID, LPARAM lParam)
+void CTestProcessDlg::OnSysCommand(UINT nID, LPARAM lParam)
 {
 	if ((nID & 0xFFF0) == IDM_ABOUTBOX)
 	{
@@ -145,7 +143,7 @@ void CTCPClientDlg::OnSysCommand(UINT nID, LPARAM lParam)
 //  to draw the icon.  For MFC applications using the document/view model,
 //  this is automatically done for you by the framework.
 
-void CTCPClientDlg::OnPaint() 
+void CTestProcessDlg::OnPaint() 
 {
 	if (IsIconic())
 	{
@@ -172,38 +170,97 @@ void CTCPClientDlg::OnPaint()
 
 // The system calls this to obtain the cursor to display while the user drags
 //  the minimized window.
-HCURSOR CTCPClientDlg::OnQueryDragIcon()
+HCURSOR CTestProcessDlg::OnQueryDragIcon()
 {
 	return (HCURSOR) m_hIcon;
 }
 
-void CTCPClientDlg::OnOK() 
+
+int x = 0;
+int y = 0;
+int LastTime1 = 0;
+int LastTime2 = 0;
+int NeedClose = 0;
+char Buf[256];
+	ULONG WINAPI Thread1(void* pParam) 
+{
+	CTestProcessDlg* p = (CTestProcessDlg*)pParam;
+	CListBox* pList1;
+	pList1 = (CListBox*)p->GetDlgItem(IDC_LIST1);
+	sprintf(Buf,"Thread1 Start...");
+	pList1->AddString((Buf));
+	for (;;) {
+		x++;
+		x = x % 100;
+		int t = timeGetTime();
+		if ((t - LastTime1) > 1000) {
+			sprintf(Buf, "x=%d",x);
+			pList1->AddString(Buf);
+			LastTime1 = t;
+		}
+		if (NeedClose) break;
+	}
+	return 1;
+}
+
+ULONG WINAPI Thread2(void* pParam)
+{
+	CTestProcessDlg* p = (CTestProcessDlg*)pParam;
+	CListBox* pList2;
+	pList2 = (CListBox*)p->GetDlgItem(IDC_LIST2);
+	/*sprintf(Buf, _T("Thread1 Start..."));*/
+	pList2->AddString("Thread2 start...");
+	CListBox* pList1;
+	pList1 = (CListBox*)p->GetDlgItem(IDC_LIST1);
+	for (;;) {
+		y++;
+		y = y % 100;
+		char Buf[256];
+		int t = timeGetTime();
+		if ((t - LastTime2) > 1000) {
+			int z = x + y;
+			Sleep(0);
+			sprintf(Buf,"x=%d y=%d x+y=%d==%d", x, y, x + y, z);
+			pList2->AddString(Buf);
+			LastTime2 = t;
+		}
+		if (NeedClose) break;
+	}
+	return 1;
+}
+
+void CTestProcessDlg::OnButton1() 
+{
+	// TODO: Add your control notification handler code here
+	DWORD ThreadID;
+	CreateThread(0,0,Thread1,this,0,&ThreadID);	
+}
+
+void CTestProcessDlg::OnButton2() 
+{
+	// TODO: Add your control notification handler code here
+	DWORD ThreadID;
+	CreateThread(0,0,Thread2,this,0,&ThreadID);
+}
+
+void CTestProcessDlg::OnSelchangeList1() 
+{
+	// TODO: Add your control notification handler code here
+	
+}
+
+void CTestProcessDlg::OnSelchangeList2() 
+{
+	// TODO: Add your control notification handler code here
+	
+}
+
+void CTestProcessDlg::OnOK() 
 {
 	// TODO: Add extra validation here
-	//CDialog::OnOK();
-	int MY_PORT=1036;
-	WSADATA wsaData;
-	SOCKET conn_sock;
-	struct sockaddr_in remote_addr;
-	char buffer[255] = "wzhsgsb";
-	unsigned long bytes_recvd = 0;
-	WSAStartup(MAKEWORD(1,1),&wsaData);
-	conn_sock = socket(AF_INET, SOCK_STREAM, 0);
-	remote_addr.sin_family = AF_INET;
-	remote_addr.sin_port = htons(MY_PORT);
-	remote_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
-	if (connect(conn_sock, (struct sockaddr*)&remote_addr, sizeof(struct sockaddr)) == SOCKET_ERROR) {
-		/*MessageBox(_T("Connect Error!"));*/
-		MessageBox("Connect Error!");
-		return;
-	}
-	//buffer[0] = 0;
-	//buffer[1099] = 0;
-	int len = strlen(buffer);
-	bytes_recvd = send(conn_sock, buffer, len, 0);
-	if (bytes_recvd > 0) {
-		MessageBox(("发送成功"), 0, 0 );
-	}
-	buffer[0] = 0;
-	recv(conn_sock, buffer, 30, 0);
+	
+	// CDialog::OnOK();
+	SetWindowText("TestProcess");
+	ShowWindow(SW_HIDE);
+
 }

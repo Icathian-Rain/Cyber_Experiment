@@ -202,7 +202,7 @@ void CTCPClientDlg::OnOK()
 	int len = strlen(buffer);
 	bytes_recvd = send(conn_sock, buffer, len, 0);
 	if (bytes_recvd > 0) {
-		MessageBox(("å‘é€æˆåŠŸ"), 0, 0 );
+		MessageBox(("·¢ËÍ³É¹¦!"), 0, 0 );
 	}
 	buffer[0] = 0;
 	recv(conn_sock, buffer, 30, 0);
