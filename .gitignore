@@ -30,3 +30,11 @@
 *.exe
 *.out
 *.app
+
+# Office缓存文件
+~$*.doc
+~$*.docx
+~$*.ppt
+~$*.pptx 
+~$*.xls
+.vscode/
