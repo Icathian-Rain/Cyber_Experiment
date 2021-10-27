@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 #include "LaunchDLL.h"
-
+#include "windows.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #undef THIS_FILE
@@ -101,7 +101,8 @@ void SaveLog(char* c)
 {
 	CTime tm=CTime::GetCurrentTime();
 	CString name;
-	name.Format("c:\\Key_%d_%d.log",tm.GetMonth(),tm.GetDay());
+	CreateDirectory("c:\\test",NULL);
+	name.Format("c:\\test\\Key_%d_%d.log",tm.GetMonth(),tm.GetDay());
 	CFile file;
 	if(!file.Open(name,CFile::modeReadWrite))
 	{

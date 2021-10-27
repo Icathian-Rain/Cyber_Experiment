@@ -6,15 +6,27 @@
 --------------------Configuration: TCPClient - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\Users\WIN7_F~1\AppData\Local\Temp\RSPB58B.tmp" with contents
+Creating command line "rc.exe /l 0x804 /fo"Debug/TCPClient.res" /d "_DEBUG" "C:\MyHook\TCPClient\TCPClient.rc"" 
+Creating temporary file "C:\Users\WIN7_F~1\AppData\Local\Temp\RSPC709.tmp" with contents
 [
-/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Debug/TCPClient.pch" /YX"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
-"C:\TCPClient\TCPClientDlg.cpp"
+/nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /Fp"Debug/TCPClient.pch" /Yc"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"C:\MyHook\TCPClient\StdAfx.cpp"
 ]
-Creating command line "cl.exe @C:\Users\WIN7_F~1\AppData\Local\Temp\RSPB58B.tmp" 
+Creating command line "cl.exe @C:\Users\WIN7_F~1\AppData\Local\Temp\RSPC709.tmp" 
+Creating temporary file "C:\Users\WIN7_F~1\AppData\Local\Temp\RSPC70A.tmp" with contents
+[
+/nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /Fp"Debug/TCPClient.pch" /YX"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"C:\MyHook\TCPClient\TCPClient.cpp"
+"C:\MyHook\TCPClient\TCPClientDlg.cpp"
+]
+Creating command line "cl.exe @C:\Users\WIN7_F~1\AppData\Local\Temp\RSPC70A.tmp" 
 Creating command line "link.exe /nologo /subsystem:windows /incremental:yes /pdb:"Debug/TCPClient.pdb" /debug /machine:I386 /out:"Debug/TCPClient.exe" /pdbtype:sept  .\Debug\StdAfx.obj .\Debug\TCPClient.obj .\Debug\TCPClientDlg.obj .\Debug\TCPClient.res "
 <h3>Output Window</h3>
+Compiling resources...
 Compiling...
+StdAfx.cpp
+Compiling...
+TCPClient.cpp
 TCPClientDlg.cpp
 Linking...
 

@@ -7,7 +7,7 @@
 </h3>
 <h3>Command Lines</h3>
 Creating command line "rc.exe /l 0x804 /fo"Debug/KeyHook.res" /d "_DEBUG" "C:\MyHook\KeyHook\KeyHook.rc"" 
-Creating temporary file "C:\Users\WIN7_F~1\AppData\Local\Temp\RSPE3D0.tmp" with contents
+Creating temporary file "C:\Users\WIN7_F~1\AppData\Local\Temp\RSP7BB5.tmp" with contents
 [
 /nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /Fp"Debug/KeyHook.pch" /YX"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
 "C:\MyHook\KeyHook\KeyHook.cpp"
@@ -15,14 +15,14 @@ Creating temporary file "C:\Users\WIN7_F~1\AppData\Local\Temp\RSPE3D0.tmp" with 
 "C:\MyHook\KeyHook\KeyHookView.cpp"
 "C:\MyHook\KeyHook\MainFrm.cpp"
 ]
-Creating command line "cl.exe @C:\Users\WIN7_F~1\AppData\Local\Temp\RSPE3D0.tmp" 
-Creating temporary file "C:\Users\WIN7_F~1\AppData\Local\Temp\RSPE3D1.tmp" with contents
+Creating command line "cl.exe @C:\Users\WIN7_F~1\AppData\Local\Temp\RSP7BB5.tmp" 
+Creating temporary file "C:\Users\WIN7_F~1\AppData\Local\Temp\RSP7BB6.tmp" with contents
 [
 /nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /Fp"Debug/KeyHook.pch" /Yc"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
 "C:\MyHook\KeyHook\StdAfx.cpp"
 ]
-Creating command line "cl.exe @C:\Users\WIN7_F~1\AppData\Local\Temp\RSPE3D1.tmp" 
-Creating temporary file "C:\Users\WIN7_F~1\AppData\Local\Temp\RSPE3D2.tmp" with contents
+Creating command line "cl.exe @C:\Users\WIN7_F~1\AppData\Local\Temp\RSP7BB6.tmp" 
+Creating temporary file "C:\Users\WIN7_F~1\AppData\Local\Temp\RSP7BB7.tmp" with contents
 [
 LaunchDLL.lib /nologo /subsystem:windows /incremental:yes /pdb:"Debug/KeyHook.pdb" /debug /machine:I386 /out:"Debug/KeyHook.exe" /pdbtype:sept 
 .\Debug\KeyHook.obj
@@ -32,7 +32,7 @@ LaunchDLL.lib /nologo /subsystem:windows /incremental:yes /pdb:"Debug/KeyHook.pd
 .\Debug\StdAfx.obj
 .\Debug\KeyHook.res
 ]
-Creating command line "link.exe @C:\Users\WIN7_F~1\AppData\Local\Temp\RSPE3D2.tmp"
+Creating command line "link.exe @C:\Users\WIN7_F~1\AppData\Local\Temp\RSP7BB7.tmp"
 <h3>Output Window</h3>
 Compiling resources...
 Compiling...

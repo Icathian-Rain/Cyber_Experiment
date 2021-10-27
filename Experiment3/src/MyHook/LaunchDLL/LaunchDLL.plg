@@ -7,24 +7,32 @@
 </h3>
 <h3>Command Lines</h3>
 Creating command line "rc.exe /l 0x804 /fo"Debug/LaunchDLL.res" /d "_DEBUG" "C:\MyHook\LaunchDLL\LaunchDLL.rc"" 
-Creating temporary file "C:\Users\WIN7_F~1\AppData\Local\Temp\RSPA034.tmp" with contents
+Creating temporary file "C:\Users\WIN7_F~1\AppData\Local\Temp\RSPACF6.tmp" with contents
 [
-/nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_WINDLL" /D "_MBCS" /D "_USRDLL" /Fp"Debug/LaunchDLL.pch" /Yc"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ    /c 
+/nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "_WINDLL" /Fp"Debug/LaunchDLL.pch" /YX"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"C:\MyHook\LaunchDLL\LaunchDLL.cpp"
+]
+Creating command line "cl.exe @C:\Users\WIN7_F~1\AppData\Local\Temp\RSPACF6.tmp" 
+Creating temporary file "C:\Users\WIN7_F~1\AppData\Local\Temp\RSPACF7.tmp" with contents
+[
+/nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "_WINDLL" /Fp"Debug/LaunchDLL.pch" /Yc"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
 "C:\MyHook\LaunchDLL\StdAfx.cpp"
 ]
-Creating command line "cl.exe @C:\Users\WIN7_F~1\AppData\Local\Temp\RSPA034.tmp" 
-Creating temporary file "C:\Users\WIN7_F~1\AppData\Local\Temp\RSPA054.tmp" with contents
+Creating command line "cl.exe @C:\Users\WIN7_F~1\AppData\Local\Temp\RSPACF7.tmp" 
+Creating temporary file "C:\Users\WIN7_F~1\AppData\Local\Temp\RSPACF8.tmp" with contents
 [
-/nologo /subsystem:windows /dll /incremental:yes /pdb:"Debug/LaunchDLL.pdb" /debug /machine:I386 /def:".\LaunchDLL.def" /out:"Debug/LaunchDLL.dll" /implib:"Debug/LaunchDLL.lib" /pdbtype:sept 
+LaunchDLL.lib /nologo /subsystem:windows /dll /incremental:yes /pdb:"Debug/LaunchDLL.pdb" /debug /machine:I386 /def:".\LaunchDLL.def" /out:"Debug/LaunchDLL.dll" /implib:"Debug/LaunchDLL.lib" /pdbtype:sept 
 .\Debug\LaunchDLL.obj
 .\Debug\StdAfx.obj
 .\Debug\LaunchDLL.res
 ]
-Creating command line "link.exe @C:\Users\WIN7_F~1\AppData\Local\Temp\RSPA054.tmp"
+Creating command line "link.exe @C:\Users\WIN7_F~1\AppData\Local\Temp\RSPACF8.tmp"
 <h3>Output Window</h3>
 Compiling resources...
 Compiling...
 StdAfx.cpp
+Compiling...
+LaunchDLL.cpp
 Linking...
    Creating library Debug/LaunchDLL.lib and object Debug/LaunchDLL.exp
 

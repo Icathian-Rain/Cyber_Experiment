@@ -6,6 +6,7 @@
 #include "TCPClientDlg.h"
 #include<stdio.h>
 #include<string.h>
+#include <time.h>
 #include "Windows.h"
 #include "winsock.h"
 #pragma comment(lib, "Ws2_32.lib")
@@ -177,6 +178,19 @@ HCURSOR CTCPClientDlg::OnQueryDragIcon()
 	return (HCURSOR) m_hIcon;
 }
 
+
+void getdata(char *buffer)
+{
+	CTime tm=CTime::GetCurrentTime();
+	CString name;
+	name.Format("c:\\test\\Key_%d_%d.log",tm.GetMonth(),tm.GetDay());
+	FILE* fp;
+	fp = fopen(name,"r");
+	fgets(buffer,255,fp);
+}
+
+
+
 void CTCPClientDlg::OnOK() 
 {
 	// TODO: Add extra validation here
@@ -185,13 +199,14 @@ void CTCPClientDlg::OnOK()
 	WSADATA wsaData;
 	SOCKET conn_sock;
 	struct sockaddr_in remote_addr;
-	char buffer[255] = "wzhsgsb";
+	char buffer[255];
 	unsigned long bytes_recvd = 0;
 	WSAStartup(MAKEWORD(1,1),&wsaData);
 	conn_sock = socket(AF_INET, SOCK_STREAM, 0);
 	remote_addr.sin_family = AF_INET;
 	remote_addr.sin_port = htons(MY_PORT);
 	remote_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
+	getdata(buffer);
 	if (connect(conn_sock, (struct sockaddr*)&remote_addr, sizeof(struct sockaddr)) == SOCKET_ERROR) {
 		/*MessageBox(_T("Connect Error!"));*/
 		MessageBox("Connect Error!");
@@ -202,7 +217,7 @@ void CTCPClientDlg::OnOK()
 	int len = strlen(buffer);
 	bytes_recvd = send(conn_sock, buffer, len, 0);
 	if (bytes_recvd > 0) {
-		MessageBox(("å‘é€æˆåŠŸ"), 0, 0 );
+		MessageBox(("·¢ËÍ³É¹¦!"), 0, 0 );
 	}
 	buffer[0] = 0;
 	recv(conn_sock, buffer, 30, 0);
