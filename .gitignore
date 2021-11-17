@@ -40,3 +40,6 @@
 .vscode/
 .history/*
 *.json
+DirBuster-1.0-RC1/
+websitesniffer/
+*.rar
