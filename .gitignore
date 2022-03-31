@@ -43,3 +43,10 @@
 DirBuster-1.0-RC1/
 websitesniffer/
 *.rar
+*.zip
+*.7z
+*.pdf
+*.xml
+*.iml
+*.html
+*.gif
