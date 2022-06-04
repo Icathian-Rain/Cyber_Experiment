@@ -58,6 +58,7 @@ class DHServer(DHProto):
 
     def handle_handshake_request(self, pkt_data):
         # handshake_request响应
+        # 验证身份信息
         if pkt_data[4:].decode('utf-8') == A_AUTH:
             print("handshake_request from A")
             return True
@@ -65,28 +66,36 @@ class DHServer(DHProto):
             print("auth ERROR!")
             return False
 
-    def send_handshake_reply(self, addr):
-        
+    def send_handshake_reply(self, addr):        
         header = MAGIC + VERSION + DHTYPE[2]
-        print("waiting for prime p")
         self.p = genNbitsPrime(DEFAULT_KEY_BYTES_LENGTH * 8)
-        print("got prime p={}".format(self.p))
+        # 获取生成元g
         self.g = get_generator(self.p)
+        print("generate: p={}, g={}".format(self.p, self.g))
+        # 封装data
         data = int.to_bytes(self.p, int(DEFAULT_KEY_BYTES_LENGTH), byteorder = 'big')
         data += int.to_bytes(self.g, int(DEFAULT_KEY_BYTES_LENGTH), byteorder = 'big')
         data += bytearray(B_AUTH, encoding='utf-8')
+        # 发送handshake_reply
+        print('send handshake_reply')
         self.sock.sendto(header + data, addr)
 
     def handle_confirm_shared(self, pkt_data):
         print("confirm_shared from A")
+        # 生成b
         self.b = random.randint(1, self.p - 1)
+        # 生成yb
         self.yb = get_cal(self.g, self.p, self.b)
+        # 获取ya
         self.ya = int.from_bytes(pkt_data[4:], byteorder = 'big')
-        self.key = get_key(self.ya, self.yb, self.p)
+        # 生成key
+        self.key = get_key(self.ya, self.b, self.p)
 
     def send_confirm_cal(self, addr):
         header = MAGIC + VERSION + DHTYPE[4]
+        # 发送yb
         data = int.to_bytes(self.yb, DEFAULT_KEY_BYTES_LENGTH, byteorder = 'big')
+        print('send confirm_cal')
         self.sock.sendto(header + data, addr)
 
     def run(self):
@@ -125,14 +134,21 @@ class DHClient(DHProto):
     def send_handshake_request(self, addr):
         header = MAGIC + VERSION + DHTYPE[1]
         data = A_AUTH.encode('utf-8')
+        print('send handshake_request')
         self.sock.sendto(header + data, addr)
 
     def handle_handshake_reply(self, pkt_data):
+        # handshake_reply响应
+        # 验证身份信息
         if pkt_data[4+DEFAULT_KEY_BYTES_LENGTH*2:].decode('utf-8') == B_AUTH:
             print("handshake_reply from B")
+            # 获取g, p
             self.p = int.from_bytes(pkt_data[4:4+DEFAULT_KEY_BYTES_LENGTH], byteorder = 'big')
             self.g = int.from_bytes(pkt_data[4+DEFAULT_KEY_BYTES_LENGTH:4+DEFAULT_KEY_BYTES_LENGTH*2], byteorder = 'big')
+            print("get: p={}, g={}".format(self.p, self.g))
+            # 生成a
             self.a = random.randint(1, self.p - 1)
+            # 生成ya
             self.ya = get_cal(self.g, self.p, self.a)
             return True
         else:
@@ -140,14 +156,17 @@ class DHClient(DHProto):
             return False
 
     def send_confirm_shared(self, addr):
+        print('send confirm_shared')
         header = MAGIC + VERSION + DHTYPE[3]
+        # 发送ya    
         data = int.to_bytes(self.ya, int(DEFAULT_KEY_BYTES_LENGTH), byteorder = 'big')
         self.sock.sendto(header + data, addr)
 
     def handle_confirm_cal(self, pkt_data):
         print("confirm_cal from B")
+        # 获取yb    
         self.yb = int.from_bytes(pkt_data[4:],byteorder = 'big')
-        self.key = get_key(self.ya, self.yb, self.p)
+        self.key = get_key(self.yb, self.a, self.p)
         return True
 
 

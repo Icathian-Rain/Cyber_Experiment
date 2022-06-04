@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import random
 import time
 
@@ -65,7 +66,7 @@ def get_key(cal_A, cal_B, p):
     """
     生成密钥
     """
-    return power(cal_B, cal_A, p)
+    return power(cal_A, cal_B, p)
 
 
 
