@@ -30,6 +30,6 @@ ____________________________
 |网安实验2_1|[Experiment2_1](./Experiment2_1)|x|
 |网安实验2_2|[Experiment2_2](./Experiment2_2)|√|
 |网安实践2_3|[Experiment2_3](./Experiment2_3)|√|
-|网安实践2_9|[Experiment2_9](.\Experiment2_9)|√|
+|网安实践2_9|[Experiment2_9](./Experiment2_9)|√|
 
 	待更新
